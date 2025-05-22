@@ -44,6 +44,20 @@ php bin/console doctrine:migrations:migrate
 php bin/console doctrine:fixtures:load
 ```
 
+## Configuração do Frontend
+
+
+### Carregar todos CSS e scripts (DEV)
+```bash
+npm run watch
+```
+
+### Carregar todos CSS e scripts (Prod)
+
+```bash
+npm run build
+```
+
 ## Iniciar Servidor
 
 ```bash
