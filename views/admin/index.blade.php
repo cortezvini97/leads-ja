@@ -27,31 +27,38 @@
                 </form>
                 <div class="mt-4">
                     <table class="table table-dark mt-4">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Nome</th>
-                            <th scope="col">Cidade</th>
-                            <th scope="col">Estado</th>
-                            <th scope="col">E-mail</th>
-                            <th scope="col">Telefone</th>
-                            <th scope="col">Categoria</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($leads as $lead)
+                        <thead>
                             <tr>
-                                <th scope="row">{{$lead->getId()}}</th>
-                                <td>{{$lead->getNome()}}</td>
-                                <td>{{$lead->getCidade()}}</td>
-                                <td>{{$lead->getEstado()}}</td>
-                                <td>{{$lead->getEmail()}}</td>
-                                <td>{{$lead->getTelefone()}}</td>
-                                <td>{{$lead->getCategoria()}}</td>
+                                <th scope="col">#</th>
+                                <th scope="col">Nome</th>
+                                <th scope="col">Cidade</th>
+                                <th scope="col">Estado</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Telefone</th>
+                                <th scope="col">Categoria</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach($leads as $lead)
+                                <tr>
+                                    <th scope="row">{{$lead->getId()}}</th>
+                                    <td>{{$lead->getNome()}}</td>
+                                    <td>{{$lead->getCidade()}}</td>
+                                    <td>{{$lead->getEstado()}}</td>
+                                    <td>{{$lead->getEmail()}}</td>
+                                    <td>{{$lead->getTelefone()}}</td>
+                                    <td>{{$lead->getCategoria()}}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    @php
+                        $total = count($leads);
+                    @endphp
+
+                    @if($total > 0)
+                        <a id="download_btn" data-url="{{route('admin_getfileExcel')}}" download="leads.xlsx" class="btn btn-primary mt-4">Download</a>
+                    @endif
                 </div>
             </div>
         </main>
@@ -60,4 +67,5 @@
 
 @section("javascripts")
     @encore_entry_script_tags('upload_banner')
+    @encore_entry_script_tags('admin_xlsx')
 @endsection

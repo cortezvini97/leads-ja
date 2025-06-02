@@ -23,6 +23,7 @@ Encore
     .addEntry('app', './assets/js/app.js')
     .addEntry('admin', './assets/js/admin.js')
     .addEntry('upload_banner', './assets/js/upload_banner.js')
+    .addEntry('admin_xlsx', './assets/js/admin_xlsx.js')
     .addEntry('login', './assets/js/login.js')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Helper\GenerateXLSX;
 use App\Helper\UserFactory;
 use App\Repository\LeadsRepository;
 use App\Repository\UserRepository;
@@ -55,6 +56,20 @@ class AdminController extends RenderViewsController
         ]);
     }
 
+
+    #[Route(path: "/admin/getfileExcel", name: "admin_getfileExcel", methods: ["GET"])]
+    public function getfileExcel(): Response{
+        if(!$this->security->isGranted("IS_AUTHENTICATED_FULLY")){
+            return $this->redirectToRoute("app_login");
+        }
+
+        $leads = $this->leads_repository->findAll();
+
+
+        $data_url = $this->generate($leads);
+
+        return $this->json(["data_url"=>$data_url]);
+    }
 
     #[Route(path: "/admin/uploadbanner", name:"upload_banner", methods: ["POST"])]
     public function uploadBanner(Request $request): Response{
@@ -279,6 +294,14 @@ class AdminController extends RenderViewsController
         ]);
 
         return $user;
+    }
+
+
+    private function generate($leads):string{
+        $gen = new GenerateXLSX($leads);
+        $b64 = $gen->generate();
+        $dataUrl = 'data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,' . $b64;
+        return $dataUrl;
     }
 
     
